@@ -175,12 +175,19 @@ func main() {
 
 	n.UseHandler(rootRouter)
 
+	// Dynamically assign port from env var if set
+	address := cfg.Server.Address
+	envPort, envPortExists := os.LookupEnv("PORT")
+	if envPortExists {
+		address = ":" + envPort
+	}
+
 	logger.WithFields(logrus.Fields{
-		"address": cfg.Server.Address,
+		"address": address,
 		"tls":     cfg.Server.TLS.Enable,
 	}).Info("starting server")
 
-	if err := serve(n, cfg.Server.Address, cfg.Server.TLS); err != nil {
+	if err := serve(n, address, cfg.Server.TLS); err != nil {
 		logger.Fatalf("server error: %s", err)
 	}
 }

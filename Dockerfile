@@ -20,4 +20,4 @@ FROM scratch
 
 COPY --from=intermediate /snake-server /usr/local/bin/snake-server
 
-ENTRYPOINT ["snake-server"]
+ENTRYPOINT ["snake-server", "--enable-web"]
