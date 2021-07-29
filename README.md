@@ -1,6 +1,7 @@
 
 # Snake-Server
 
+
 [![Build Status](https://travis-ci.org/ivan1993spb/snake-server.svg?branch=master)](https://travis-ci.org/ivan1993spb/snake-server) [![Go Report Card](https://goreportcard.com/badge/github.com/ivan1993spb/snake-server)](https://goreportcard.com/report/github.com/ivan1993spb/snake-server) [![GitHub release](https://img.shields.io/github/release/ivan1993spb/snake-server.svg)](https://github.com/ivan1993spb/snake-server/releases/latest)
 
 The Snake-Server is a server for the online arcade game snake. In this edition you can interact with other players and even eat small snakes!
@@ -293,7 +294,7 @@ API examples:
 * **Request `POST /api/games/{id}/broadcast`**
 
   Request sends a message to all players in a selected game. Returns `true` on success.
-  
+
   **Request body size is limited: maximum 128 bytes**
 
   ```
@@ -502,7 +503,7 @@ Game objects:
   }
   ```
 
-### Game messages 
+### Game messages
 
 There are *input* and *output* game messages.
 
@@ -522,7 +523,7 @@ The structure:
 Types:
 
 * *game* - a message payload contains game events. Game events have a type and a payload:
-  
+
   ```
   {
     "type": "game",
@@ -532,7 +533,7 @@ Types:
     }
   }
   ```
-  
+
   Game events contain information about creating, updating, deleting of game objects on a playground.
 
 * *player* - a message payload contains player specific information. Player messages have a type and a payload:
