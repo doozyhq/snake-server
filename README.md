@@ -31,72 +31,36 @@ Take a look at a working instance here - http://snakeonline.xyz
 * You control a snake
 * You need to grow the biggest snake
 * You can eat apples, mice, watermelons, small and dead snakes
-* If you hit a wall, your snake will die and you will start over
+* If the snake dies, you will have to start over
 
-## Demo
+## Installation
 
-[![Game demo](demo.gif)](http://snakeonline.xyz)
-
-[Try it out!](http://snakeonline.xyz)
-
-## Basic usage
-
-* Run the Snake-Server:
-  - Using binary:
-    ```bash
-    # show help information
-    snake-server -h
-
-     # run the server and enable web interface
-    snake-server --enable-web
-    ```
-  - With Docker:
-    ```bash
-    # show information
-    docker run --rm -p 8080:8080 ivan1993spb/snake-server -h
-
-    # run the server with an interface enabled
-    docker run --rm -p 8080:8080 ivan1993spb/snake-server --enable-web
-    ```
-* Open in a browser http://localhost:8080/.
-
-## Install
-
-To install the Snake-Server you can download the server as a binary or pull the docker image or run the ansible playbook. See below.
-
-* **Download with *go get***
-
-  The simpliest way to install the latest version of the Snake-Server is to run **go get**
+* **Go get**
 
   ```
-  go get github.com/ivan1993spb/snake-server
+  go get github.com/ivan1993spb/snake-server@latest
   snake-server -h
   ```
 
-* **Pull the image from DOCKER-HUB**
+* **Docker**
 
-  [![Docker Pulls](https://img.shields.io/docker/pulls/ivan1993spb/snake-server)](https://hub.docker.com/r/ivan1993spb/snake-server)
-
-  Check out [**the repo**](https://hub.docker.com/r/ivan1993spb/snake-server) and [**the tag list**](https://hub.docker.com/r/ivan1993spb/snake-server/tags/).
+  Check out [**the repo**](https://hub.docker.com/r/ivan1993spb/snake-server).
 
   ```bash
-  # pull an image
   docker pull ivan1993spb/snake-server
 
-  # run it
   docker run --rm -p 8080:8080 ivan1993spb/snake-server --enable-web
 
-  # view usage inforamtion
   docker run --rm ivan1993spb/snake-server -h
   ```
 
-* **Download and install binary**
+* **Download and install the binary**
 
-  You can download a binary from the [**release page**](https://github.com/ivan1993spb/snake-server/releases/latest)
+  Take a look at the [**release page**](https://github.com/ivan1993spb/snake-server/releases/latest)
 
-  Also using curl:
+  Curl:
 
-  + Setup variables *VERSION*, *PLATFORM* and *ARCHITECTURE* (386 or amd64):
+  + Set *VERSION*, *PLATFORM* and *ARCHITECTURE*:
     ```bash
     VERSION=v4.3.0
     # darwin or linux or windows
@@ -104,33 +68,27 @@ To install the Snake-Server you can download the server as a binary or pull the 
     # amd64 or 386
     ARCHITECTURE=amd64
     ```
-  + Download and install the Snake-Server's binary:
+  + Download and install the binary to `/usr/local/bin/`:
     ```bash
     curl -sL "https://github.com/ivan1993spb/snake-server/releases/download/${VERSION}/snake-server-${VERSION}-${PLATFORM}-${ARCHITECTURE}.tar.gz" |\
       tar xvz -C /usr/local/bin/
     ```
 
-* **Deploy the server with ansible playbook**
+* **Deploy the server using the ansible playbook**
 
-  The repository is [here](https://github.com/ivan1993spb/snake-ansible).
+  https://github.com/ivan1993spb/snake-ansible.
 
-  ```bash
-  git clone https://github.com/ivan1993spb/snake-ansible.git
-  cd snake-ansible
-  less README.md
-  ```
+## CLI options
 
-## CLI arguments
+Use `snake-server -h` for more information.
 
-Use `snake-server -h` for help info.
-
-Arguments:
+Options:
 
 * `--address` - **string** - sets an address to listen and serve (default: *:8080*). For example: *:8080*, *localhost:7070*
 * `--conns-limit` - **integer** - to limit the number of opened web-socket connections (default: *1000*)
 * `--groups-limit` - **integer** - to limit the number of games for a server instance (default: *100*)
 * `--enable-web` - **bool** - to enable the embedded web client (default: *false*)
-* `--enable-broadcast` - **bool** - to enable the broadcasting API method (default: *false*)
+* ~~`--enable-broadcast` - **bool** - to enable the broadcasting API method (default: *false*)~~
 * `--forbid-cors` - **bool** - to forbid cross-origin resource sharing (default: *false*)
 * `--log-json` - **bool** - to enable JSON log output format (default: *false*)
 * `--log-level` - **string** - to set the log level: *panic*, *fatal*, *error*, *warning* (*warn*), *info* or *debug* (default: *info*)
@@ -140,52 +98,20 @@ Arguments:
 * `--tls-cert` - **string** - to specify a path to a certificate file
 * `--tls-enable` - **bool** - to enable TLS
 * `--tls-key` - **string** - to specify a path to a key file
-
-## Build
-
-To build the Snake-Server you need Git and [Go](https://golang.org/) (version 1.16.4+ is required). You can also build the server without Go using Docker.
-
-Firstly, you need to clone the repo:
-
-```
-git clone https://github.com/ivan1993spb/snake-server.git
-cd snake-server
-```
-
-Then:
-
-* If you have Go
-  ```
-  make
-  make install
-  ```
-* If you have Docker
-  - Build a binary and install it
-    ```
-    make go/build
-    mv snake-server /usr/local/bin/
-    ```
-* If you want to build a docker image `make docker/build`
+* `--debug` - **bool** - to enable profiling routes
 
 ## Clients
 
-There is an embedded JavaScript web client for the server. You can enable it using the CLI flag `--enable-web`.
+There is an embedded JavaScript web client compiled into the server.
+You can enable it with CLI flag `--enable-web`.
 
-Also, you are welcome to create your own client using the described below API.
+You are always welcome to create your own client!
 
-Some samples you can find here:
+You can find examples here:
 
 * VueJS client repo: https://github.com/ivan1993spb/snake-lightweight-client
 
   *This is the embedded web client*
-
-* PyGame client repo: https://github.com/ivan1993spb/snake-desktop-client
-
-  *Development is in progress*
-
-* Python client repo: https://github.com/ivan1993spb/snake-client
-
-  *Development is in progress*
 
 * Python backend repo: https://github.com/ivan1993spb/snake-backend
 
@@ -770,20 +696,7 @@ A broadcast input message contains a short message to be sent to all players in 
 
 Examples:
 
-* Text: *hello!*
-  ```json
-  {
-    "type": "broadcast",
-    "payload": "hello!"
-  }
-  ```
-* Smile: *;)*
-  ```json
-  {
-    "type": "broadcast",
-    "payload": ";)"
-  }
-  ```
+REST API specification: [openapi.yaml](openapi.yaml).
 
 ## License
 
