@@ -18,7 +18,7 @@ import (
 const (
 	snakeTypeLabel = "snake"
 
-	snakeStartSpeed  = time.Millisecond * 500
+	snakeStartSpeed  = time.Millisecond * 2000
 	snakeSpeedFactor = 1
 
 	snakeStartLength = 3
